@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ExercisesService } from '../exercises.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -12,15 +12,16 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class ExerciseAddComponent implements OnInit {
 
   selected = 'text';
-  // solutionOptions = [
-  //   { key: 'text', label: 'Text'},
-  //   { key: 'singleChoice', label: 'Single Choice'},
-  //   { key: 'multipleChoice', label: 'Multiple Choice'}
-  // ]
+  name = 'ng2-ckeditor';
+  ckeConfig: any;
+  myContent: any;
+  log: string = '';
+  @ViewChild('myCKEditor', {static: true}) ckeditor: any;
 
   angForm: FormGroup;
 
   constructor(private fb: FormBuilder, private es: ExercisesService, private _snackBar: MatSnackBar) {
+    this.myContent = `<p>my html content</p>`;
     this.createForm();
    }
 
@@ -43,7 +44,24 @@ export class ExerciseAddComponent implements OnInit {
     });
   }
 
+  onChange($event: any): void {
+    console.log('onChange');
+  }
+
+  onPaste($event: any): void {
+    console.log('onPaste');
+  }
+
+  saveFile() {
+    console.log("save clicked");
+  }
+
   ngOnInit() {
+    this.ckeConfig = {
+      allowedContent: false,
+      extraPlugins: 'divarea',
+      forcePasteAsPlainText: true
+    };
   }
 
 }

@@ -3,7 +3,7 @@
 
     <mat-form-field>
       <div class="form-group">
-        <input matInput placeholder="Exercise Name" required
+        <input matInput placeholder="Title" required
           class="form-control"
           formControlName="ExerciseName"
           #ExerciseName>
@@ -16,53 +16,39 @@
       </div>
     </div>
 
-    <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                          (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>Exercise</mat-panel-title>
-          <mat-panel-description>Create a new exercise</mat-panel-description>
-        </mat-expansion-panel-header>
-          <form role="form" #myForm="ngForm" accept-charset="UTF-8" novalidate>
-          <div class="form-group has-feedback"
-                [ngClass]="{ 'has-error': myckeditor.invalid && myckeditor.touched }">
-            <ckeditor [(ngModel)]="mycontent"
-                      #myckeditor="ngModel"
-                      name="myckeditor"
-                      required
+    <h5>Exercise</h5>
+      <form role="form" #myForm="ngForm" accept-charset="UTF-8" novalidate>
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': exerciseEditor.invalid && exerciseEditor.touched }">
+          <ckeditor [(ngModel)]="ExerciseContent"
+                      #exerciseEditor="ngModel"
+                      name="exerciseEditor"
+                      [config]="ckeConfigExercise"
+                      debounce="500"
+                      (paste)="onPaste($event)"
+                      (change)="onChange($event)">
+          </ckeditor>
+          <div *ngIf="exerciseEditor.invalid && exerciseEditor.touched" class="help-block">Required field.</div>
+        </div>
+        <div [innerHTML]="ExerciseContent"></div>
+      </form>
+
+    <h5>Solution</h5>
+      <form role="form" #myForm="ngForm" accept-charset="UTF-8" novalidate>
+          <div class="form-group has-feedback" [ngClass]="{ 'has-error': solutionEditor.invalid && solutionEditor.touched }">
+            <ckeditor [(ngModel)]="solutionContent"
+                      #solutionEditor="ngModel"
+                      name="solutionEditor"
                       [config]="ckeConfig"
                       debounce="500"
                       (paste)="onPaste($event)"
                       (change)="onChange($event)">
             </ckeditor>
-            <div *ngIf="myckeditor.invalid && myckeditor.touched" class="help-block">Required field.</div>
+            <div *ngIf="solutionEditor.invalid && solutionEditor.touched" class="help-block">Required field.</div>
           </div>
-          <div [innerHTML]="mycontent"></div>
-          </form>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                          (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>Solution</mat-panel-title>
-          <mat-panel-description>Create the solution</mat-panel-description>
-        </mat-expansion-panel-header>
-        <section class="example-section">
-          <span class="example-list-section">
-            <ul>
-              <li>
-                <mat-checkbox class="example-margin">Answer 1</mat-checkbox>
-                <mat-checkbox class="example-margin">Answer 2</mat-checkbox>
-                <mat-checkbox class="example-margin">Answer 3</mat-checkbox>
-                <mat-checkbox class="example-margin">Answer 4</mat-checkbox>
-              </li>
-            </ul>
-          </span>
-        </section>
-      </mat-expansion-panel>
-    </mat-accordion>
+          <div [innerHTML]="solutionContent"></div>
+        </form>
 
   </div>
-  <button [disabled]="myForm.invalid" class="btn btn-primary" (click)="saveFile()">Save</button>
+  <button [disabled]="myForm.invalid" class="btn btn-primary" (click)="saveFile(ExerciseName.value, exerciseEditor.value, solutionEditor.value)">Save</button>
 </mat-card>
 

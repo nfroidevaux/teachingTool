@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { SetAddComponent } from './set-add/set-add.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatExpansionModule,
     MatCheckboxModule,
     MatSelectModule,
-    DragDropModule
+    DragDropModule,
+    MatDividerModule
   ],
   providers: [
     ExercisesService

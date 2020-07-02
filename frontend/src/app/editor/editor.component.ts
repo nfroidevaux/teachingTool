@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ExercisesService } from '../exercises.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-editor',
@@ -10,20 +12,30 @@ export class EditorComponent implements OnInit {
   panelOpenState = false;
 
   name = 'ng2-ckeditor';
-  ckeConfig: any;
-  myContent: any;
+  ckeConfigExercise: any;
+  exerciseContent: any;
   log: string = '';
   @ViewChild('myCKEditor', {static: true}) ckeditor: any;
 
+  name2 = 'ng2-ckeditor2';
+  ckeConfigSolution: any;
+  solutionContent: any;
+  log2: string = '';
+  @ViewChild('myCKEditor2', {static: true}) ckeditor2: any;
+
   angForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.myContent = `<p>my html content</p>`;
+  constructor(private fb: FormBuilder, private exerciseService: ExercisesService, private _snackBar: MatSnackBar) {
     this.createForm();
   }
 
   ngOnInit() {
-    this.ckeConfig = {
+    this.ckeConfigExercise = {
+      allowedContent: false,
+      extraPlugins: 'divarea',
+      forcePasteAsPlainText: true
+    };
+    this.ckeConfigSolution = {
       allowedContent: false,
       extraPlugins: 'divarea',
       forcePasteAsPlainText: true
@@ -46,8 +58,18 @@ export class EditorComponent implements OnInit {
     console.log('onPaste');
   }
 
-  saveFile() {
+  saveFile(title, exercise, solution) {
+    // let obj = {title, exercise, solution};
     console.log("save clicked");
+    console.log(title, exercise, solution);
+    this.exerciseService.addExercise(title, exercise, solution);
+    this.openSnackBar('Exercise saved!', '');
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }

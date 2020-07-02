@@ -1,0 +1,17 @@
+.exercise-card {
+  max-width: 400px;
+}
+
+.exercise-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-container > * {
+  width: 100%;
+}
+
+.button-row button,
+.button-row a {
+margin-right: 8px;
+}

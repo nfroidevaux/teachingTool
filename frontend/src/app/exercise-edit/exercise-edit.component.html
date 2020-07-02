@@ -1,0 +1,56 @@
+<mat-card class="exercise-card">
+  <div class="exercise-container" [formGroup]="angForm">
+
+    <mat-form-field>
+      <div class="form-group">
+        <input matInput placeholder="Name" required
+          class="form-control"
+          formControlName="ExerciseName"
+          #ExerciseName
+          [(ngModel)] = "exercise.ExerciseName">
+      </div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <div class="form-group">
+        <textarea matInput placeholder="Exercise Description" required
+          class="form-control"
+          formControlName="ExerciseDescription"
+          #ExerciseDescription
+          [(ngModel)] = "exercise.ExerciseDescription"></textarea>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput placeholder="Solution" required
+        class="form-control"
+        formControlName="ExerciseSolution"
+        #ExerciseSolution
+        [(ngModel)] = "exercise.ExerciseSolution"></textarea>
+    </mat-form-field>
+
+    <div *ngIf="angForm.controls['ExerciseName'].invalid && (angForm.controls['ExerciseName'].dirty || angForm.controls['ExerciseName'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['ExerciseName'].errors.required">
+          Exercise Name is required.
+        </div>
+    </div>
+    <div *ngIf="angForm.controls['ExerciseDescription'].invalid && (angForm.controls['ExerciseDescription'].dirty || angForm.controls['ExerciseDescription'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['ExerciseDescription'].errors.required">
+          Exercise Description is required.
+      </div>
+    </div>
+    <div *ngIf="angForm.controls['ExerciseSolution'].invalid && (angForm.controls['ExerciseSolution'].dirty || angForm.controls['ExerciseSolution'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['ExerciseSolution'].errors.required">
+          Exercise Description is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button (click) = "updateExercise(ExerciseName.value, ExerciseDescription.value, ExerciseSolution.value)" type="submit" class="btn btn-primary"
+        [disabled]="angForm.invalid" >
+          Update Exercise
+      </button>
+    </div>
+
+  </div>
+</mat-card>

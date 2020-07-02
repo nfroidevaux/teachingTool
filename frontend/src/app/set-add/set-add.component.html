@@ -1,0 +1,28 @@
+<div class="example-container">
+  <h2>Exercises</h2>
+
+  <div
+    cdkDropList
+    #exerciseList="cdkDropList"
+    [cdkDropListData]="exercises"
+    [cdkDropListConnectedTo]="[set]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of exercises" cdkDrag>{{item.ExerciseName}}</div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>New Set</h2>
+
+  <div
+    cdkDropList
+    #set="cdkDropList"
+    [cdkDropListData]="setOfExercises"
+    [cdkDropListConnectedTo]="[exerciseList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of setOfExercises" cdkDrag>{{item.ExerciseName}}</div>
+  </div>
+</div>
+

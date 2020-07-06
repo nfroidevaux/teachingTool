@@ -59,7 +59,6 @@ export class EditorComponent implements OnInit {
   }
 
   saveFile(title, exercise, solution) {
-    // let obj = {title, exercise, solution};
     console.log("save clicked");
     console.log(title, exercise, solution);
     this.exerciseService.addExercise(title, exercise, solution);

@@ -32,6 +32,14 @@ export class ExerciseEditComponent implements OnInit {
     });
   }
 
+  onChange($event: any): void {
+    console.log('onChange');
+  }
+
+  onPaste($event: any): void {
+    console.log('onPaste');
+  }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.es.editExercise(params['id']).subscribe(res => {

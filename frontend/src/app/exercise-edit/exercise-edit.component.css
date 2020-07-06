@@ -1,4 +1,4 @@
-.exercise-card {
+/* .exercise-card {
   max-width: 400px;
 }
 
@@ -14,4 +14,35 @@
 .button-row button,
 .button-row a {
 margin-right: 8px;
+} */
+
+.exercise-card {
+  max-width: 800px;
+}
+
+.exercise-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-container > * {
+  width: 100%;
+}
+
+.button-row button,
+.button-row a {
+margin-right: 8px;
+}
+
+.example-section {
+  margin: 12px 0;
+}
+
+.example-margin {
+  margin: 0 12px;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 4px;
 }
